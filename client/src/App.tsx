@@ -1,5 +1,11 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import { CompanyCardList, FavoriteStockList, SearchBar } from "./components";
+import {
+  CompanyCardList,
+  FavoriteStockList,
+  Hero,
+  Navbar,
+  SearchBar,
+} from "./components";
 import { CompanySearch } from "./interfaces/company";
 import { searchCompanies } from "./endpoints";
 
@@ -45,6 +51,8 @@ const App = () => {
 
   return (
     <div className="mx-5 md:mx-[6%]">
+      <Navbar />
+      {/* <Hero /> */}
       <SearchBar
         onSearchSubmit={onSearchSubmit}
         searchValue={searchValue}
