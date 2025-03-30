@@ -10,7 +10,12 @@ const AddFavoriteStock: FC<IAddFavoriteStockProps> = (props) => {
   return (
     <form onSubmit={onAddFavoriteStock}>
       <input readOnly hidden value={symbol} />
-      <button type="submit">Add</button>
+      <button
+        className="bg-primary py-2 px-8 rounded-xl text-white cursor-pointer hover:bg-green-700"
+        type="submit"
+      >
+        Add
+      </button>
     </form>
   );
 };

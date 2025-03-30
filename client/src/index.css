@@ -13,6 +13,7 @@
     --breakpoint-lg: 1020px;
     --breakpoint-xl: 1440px;
     --color-primary: #2FCF9D;
+    --color-darkBlue: #316ebd;
 
     /* Layout */
     --grid-cols-auto: repeat(auto-fill, minmax(200px, 1fr));

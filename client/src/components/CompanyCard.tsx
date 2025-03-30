@@ -14,26 +14,19 @@ const CompanyCard: FC<ICompanyCardProps> = ({
 }): JSX.Element => {
   const { currency, exchange, name, exchangeFullName, symbol } = company;
   return (
-    <div key={id} className="rounded-xl shadow-xl text-center">
-      <img
-        className="rounded-full w-36 h-36 object-cover text-center"
-        src="/image.jpeg"
-        alt="company_logo"
-      />
-      <div>
-        <h2>
-          {name}({symbol})
-        </h2>
-        <p>{currency}</p>
-      </div>
-      <p>
-        {exchangeFullName} - {exchange}
-      </p>
-      <AddFavoriteStock
-        onAddFavoriteStock={onAddFavoriteStock}
-        symbol={symbol}
-      />
-    </div>
+    <tr>
+      <td className="py-4 text-st">{name}</td>
+      <td className="py-4">{currency}</td>
+      <td className="py-4">
+        {symbol}-{exchange}
+      </td>
+      <td className="py-4">
+        <AddFavoriteStock
+          onAddFavoriteStock={onAddFavoriteStock}
+          symbol={symbol}
+        />
+      </td>
+    </tr>
   );
 };
 
