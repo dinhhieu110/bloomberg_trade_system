@@ -2,19 +2,18 @@ import { ChangeEvent, FC, JSX, SyntheticEvent, useState } from "react";
 
 interface ISearchBarProps {
   searchValue: string | undefined;
-  onClick: (e: SyntheticEvent) => void;
+  onSearchSubmit: (e: SyntheticEvent) => void;
   handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SearchBar: FC<ISearchBarProps> = (props): JSX.Element => {
-  const { handleSearch, onClick, searchValue } = props || {};
+  const { handleSearch, onSearchSubmit, searchValue } = props || {};
   return (
-    <div>
-      search bar
-      <input onChange={handleSearch} type="text" value={searchValue} />
-      <button onClick={onClick}>Click</button>
-    </div>
+    <>
+      <form onSubmit={onSearchSubmit}>
+        <input className="border" value={searchValue} onChange={handleSearch} />
+      </form>
+    </>
   );
 };
-
 export default SearchBar;
