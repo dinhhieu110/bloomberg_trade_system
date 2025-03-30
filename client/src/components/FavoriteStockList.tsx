@@ -11,12 +11,14 @@ const FavoriteStockList: FC<IFavoriteStockListProps> = (props) => {
   const { favoriteStocks, onRemoveFavoriteStock } = props;
   const isListEmpty = favoriteStocks.length === 0;
   return (
-    <div>
-      <h2>My favorite stocks</h2>
+    <div className="mt-6">
+      <h1 className="text-lg font-semibold">My favorite stocks</h1>
       {isListEmpty ? (
-        <p>There's no data to display.</p>
+        <p className="mb-3 mt-3 text-sm font-semibold text-center text-gray-500">
+          There's no data to display
+        </p>
       ) : (
-        <ul>
+        <ul className="flex space-x-4">
           {favoriteStocks.map((stock) => (
             <FavoriteStockCard
               id={uuidv4()}

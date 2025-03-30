@@ -15,9 +15,9 @@ const CompanyCardList: FC<ICompanyCardListProps> = ({
   const isListEmpty = searchResults.length === 0;
   return (
     <div className="mt-6">
-      <h1 className="text-2xl font-semibold">Stock companies</h1>
+      <h1 className="text-lg font-semibold">Stock companies</h1>
       {isListEmpty ? (
-        <p className="mb-3 mt-3 text-xl font-semibold text-center text-gray-500">
+        <p className="mb-3 mt-3 text-sm font-semibold text-center text-gray-500">
           There's no data to display
         </p>
       ) : (

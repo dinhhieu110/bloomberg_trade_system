@@ -10,7 +10,7 @@ type IFavoriteStockCardProps = {
 const FavoriteStockCard: FC<IFavoriteStockCardProps> = (props) => {
   const { stock, onRemoveFavoriteStock, id } = props;
   return (
-    <div key={id}>
+    <div className="shadow-lg px-8 py-4 relative" key={id}>
       <h4>{stock}</h4>
       <RemoveFavoriteStock
         onRemoveFavoriteStock={onRemoveFavoriteStock}
