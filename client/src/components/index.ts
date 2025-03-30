@@ -1,3 +1,5 @@
-export { default as Card } from "./Card.tsx";
-export { default as CardList } from "./CardList.tsx";
+export { default as CompanyCard } from "./CompanyCard.tsx";
+export { default as CompanyCardList } from "./CompanyCardList.tsx";
 export { default as SearchBar } from "./SearchBar.tsx";
+export { default as AddFavoriteStock } from "./AddFavoriteStock.tsx";
+export { default as FavoriteStockList } from "./FavoriteStockList.tsx";
