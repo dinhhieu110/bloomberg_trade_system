@@ -1,16 +1,22 @@
-import React, { FC } from "react";
+import { FC, SyntheticEvent } from "react";
+import RemoveFavoriteStock from "./RemoveFavoriteStock";
 
 type IFavoriteStockCardProps = {
+  id: string;
   stock: string;
+  onRemoveFavoriteStock: (e: SyntheticEvent) => void;
 };
 
 const FavoriteStockCard: FC<IFavoriteStockCardProps> = (props) => {
-  const { stock } = props;
+  const { stock, onRemoveFavoriteStock, id } = props;
   return (
-    <>
+    <div key={id}>
       <h4>{stock}</h4>
-      <button>X</button>
-    </>
+      <RemoveFavoriteStock
+        onRemoveFavoriteStock={onRemoveFavoriteStock}
+        stock={stock}
+      />
+    </div>
   );
 };
 

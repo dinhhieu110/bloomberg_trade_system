@@ -8,7 +8,6 @@ const App = () => {
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setSeverError] = useState<string>("");
   const [favoriteStocks, setFavoriteStocks] = useState<string[]>([]);
-  console.log(searchValue);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -22,21 +21,28 @@ const App = () => {
     } else if (Array.isArray(result?.data)) {
       setSearchResult(result.data);
     }
-    console.log(searchResult);
   };
 
   const onAddFavoriteStock = (e) => {
     e.preventDefault();
-    console.log("e:", e);
 
     const isAddedFavoriteStock = favoriteStocks.find(
       (stock) => stock === e.target[0].value
     );
-    console.log("isAddedFavoriteStock:", isAddedFavoriteStock);
     if (isAddedFavoriteStock) return;
     const updatedFavoriteStocks = [...favoriteStocks, e.target[0].value];
     setFavoriteStocks(updatedFavoriteStocks);
   };
+
+  const onRemoveFavoriteStock = (e) => {
+    e.preventDefault();
+
+    const updatedFavoriteStocks = favoriteStocks.filter(
+      (stock) => stock !== e.target[0].value
+    );
+    setFavoriteStocks(updatedFavoriteStocks);
+  };
+
   return (
     <div className="mx-5 md:mx-[6%]">
       <SearchBar
@@ -44,7 +50,10 @@ const App = () => {
         searchValue={searchValue}
         handleSearch={handleSearch}
       />
-      <FavoriteStockList favoriteStocks={favoriteStocks} />
+      <FavoriteStockList
+        favoriteStocks={favoriteStocks}
+        onRemoveFavoriteStock={onRemoveFavoriteStock}
+      />
       {serverError && <p>{serverError}</p>}
       <CompanyCardList
         searchResults={searchResult}

@@ -19,7 +19,7 @@ const CompanyCardList: FC<ICompanyCardListProps> = ({
     <div>
       {searchResults.map((company) => (
         <CompanyCard
-          id={uuidv4()}
+          id={company.symbol}
           company={company}
           onAddFavoriteStock={onAddFavoriteStock}
         />
