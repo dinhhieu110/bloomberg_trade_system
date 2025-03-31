@@ -1,32 +1,22 @@
-type Props = {};
-type Company = (typeof testIncomeStatementData)[0];
+type Props = {
+  columns: any;
+  data: any;
+};
 
-const configs = [
-  {
-    Label: "Year",
-    render: (company: Company) => company.acceptedDate,
-  },
-  {
-    Label: "Cost of Revenue",
-    render: (company: Company) => company.costOfRevenue,
-  },
-];
-const Table = (props: Props) => {
+const Table = ({ columns, data }: Props) => {
   const renderedRow = testIncomeStatementData.map((company) => (
     <tr key={company.cik}>
-      {configs.map((val) => (
-        <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-          {val.render(company)}
-        </td>
+      {columns.map((val) => (
+        <td className="p-3">{val.render(company)}</td>
       ))}
     </tr>
   ));
-  const renderedHeader = configs.map((config) => (
+  const renderedHeader = columns.map((col: any) => (
     <th
-      key={config.Label}
+      key={col.Label}
       className="p-4 text-left text-xs font-medium uppercase text-gray-500 tracking-wider"
     >
-      {config.Label}
+      {col.Label}
     </th>
   ));
   return (

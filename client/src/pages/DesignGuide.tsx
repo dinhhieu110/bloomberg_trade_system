@@ -1,4 +1,3 @@
-import React from "react";
 import { Table } from "../components";
 import RatioList from "../components/RatioList";
 import { testIncomeStatementData } from "../components/Table";
@@ -20,7 +19,7 @@ const DesignGuide = (props: Props) => {
         the app
       </h2>
       <RatioList data={testIncomeStatementData} columns={columns} />
-      <Table />
+      <Table data={testIncomeStatementData} columns={columns} />
       <h3>
         Table - Table takes in a configuration object and company data as
         params. Use config to style your table
