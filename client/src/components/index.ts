@@ -11,3 +11,4 @@ export { default as Sidebar } from './Sidebar.tsx';
 export { default as CompanyProfile } from './CompanyProfile.tsx';
 export { default as IncomeStatement } from './IncomeStatement.tsx';
 export { default as Tile } from './Tile.tsx';
+export { default as Table } from './Table.tsx';
