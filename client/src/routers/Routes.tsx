@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import App from '../App';
-import { CompanyPage, Homepage, SearchPage } from '../pages';
+import { CompanyPage, DesignGuide, Homepage, SearchPage } from '../pages';
 import { CompanyProfile, IncomeStatement } from '../components';
 
 export const router = createBrowserRouter([
@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPage />,
+      },
+      {
+        path: 'design-guide',
+        element: <DesignGuide />,
       },
       {
         path: 'company/:ticker',
