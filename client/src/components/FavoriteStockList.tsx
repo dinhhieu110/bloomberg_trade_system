@@ -1,6 +1,6 @@
-import { FC, SyntheticEvent } from "react";
-import FavoriteStockCard from "./FavoriteStockCard";
-import { v4 as uuidv4 } from "uuid";
+import { FC, SyntheticEvent } from 'react';
+import FavoriteStockCard from './FavoriteStockCard';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IFavoriteStockListProps {
   favoriteStocks: string[];
@@ -18,7 +18,7 @@ const FavoriteStockList: FC<IFavoriteStockListProps> = (props) => {
           There's no data to display
         </p>
       ) : (
-        <ul className="flex space-x-4">
+        <ul className="grid md:flex flex-wrap space-x-4 w-full">
           {favoriteStocks.map((stock) => (
             <FavoriteStockCard
               id={uuidv4()}

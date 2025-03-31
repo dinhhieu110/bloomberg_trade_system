@@ -1,72 +1,11 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react";
-import {
-  CompanyCardList,
-  FavoriteStockList,
-  Hero,
-  Navbar,
-  SearchBar,
-} from "./components";
-import { CompanySearch } from "./interfaces/company";
-import { searchCompanies } from "./endpoints";
+import { Outlet } from 'react-router';
+import { Navbar } from './components';
 
 const App = () => {
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
-  const [serverError, setSeverError] = useState<string>("");
-  const [favoriteStocks, setFavoriteStocks] = useState<string[]>([]);
-
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-
-  const onSearchSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    const result = await searchCompanies(searchValue);
-    if (typeof result === "string") {
-      setSeverError(result);
-    } else if (Array.isArray(result?.data)) {
-      setSearchResult(result.data);
-    }
-  };
-
-  const onAddFavoriteStock = (e) => {
-    e.preventDefault();
-
-    const isAddedFavoriteStock = favoriteStocks.find(
-      (stock) => stock === e.target[0].value
-    );
-    if (isAddedFavoriteStock) return;
-    const updatedFavoriteStocks = [...favoriteStocks, e.target[0].value];
-    setFavoriteStocks(updatedFavoriteStocks);
-  };
-
-  const onRemoveFavoriteStock = (e) => {
-    e.preventDefault();
-
-    const updatedFavoriteStocks = favoriteStocks.filter(
-      (stock) => stock !== e.target[0].value
-    );
-    setFavoriteStocks(updatedFavoriteStocks);
-  };
-
   return (
     <div className="mx-5 md:mx-[6%]">
       <Navbar />
-      {/* <Hero /> */}
-      <SearchBar
-        onSearchSubmit={onSearchSubmit}
-        searchValue={searchValue}
-        handleSearch={handleSearch}
-      />
-      <FavoriteStockList
-        favoriteStocks={favoriteStocks}
-        onRemoveFavoriteStock={onRemoveFavoriteStock}
-      />
-      {serverError && <p>{serverError}</p>}
-      <CompanyCardList
-        searchResults={searchResult}
-        onAddFavoriteStock={onAddFavoriteStock}
-      />
+      <Outlet />
     </div>
   );
 };

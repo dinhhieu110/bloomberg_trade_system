@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 // import { useAuth } from "../../Context/useAuth";
 
 interface Props {}
@@ -7,10 +7,10 @@ const Navbar = (props: Props) => {
   //   const { isLoggedIn, user, logout } = useAuth();
   const isLoggedIn = () => false;
   const user = {
-    userName: "Wilson",
+    userName: 'Wilson',
   };
   const logout = () => {
-    console.log("Logged out...");
+    console.log('Logged out...');
   };
 
   return (
@@ -22,10 +22,10 @@ const Navbar = (props: Props) => {
           </Link>
           <div className="hidden font-bold lg:flex items-center justify-between gap-2">
             <Link to="/search" className="pt-2 text-black hover:border-b-2">
-              Dashboard
+              Explore
             </Link>
-            <Link to="/search" className="pt-2 text-black hover:border-b-2">
-              Search
+            <Link to="/dashboard" className="pt-2 text-black hover:border-b-2">
+              Dashboard
             </Link>
           </div>
         </div>

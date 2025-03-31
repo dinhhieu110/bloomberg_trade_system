@@ -1,5 +1,6 @@
-import { FC, SyntheticEvent } from "react";
-import RemoveFavoriteStock from "./RemoveFavoriteStock";
+import { FC, SyntheticEvent } from 'react';
+import RemoveFavoriteStock from './RemoveFavoriteStock';
+import { Link } from 'react-router';
 
 type IFavoriteStockCardProps = {
   id: string;
@@ -10,8 +11,8 @@ type IFavoriteStockCardProps = {
 const FavoriteStockCard: FC<IFavoriteStockCardProps> = (props) => {
   const { stock, onRemoveFavoriteStock, id } = props;
   return (
-    <div className="shadow-lg px-8 py-4 relative" key={id}>
-      <h4>{stock}</h4>
+    <div className="shadow-lg px-8 py-4 relative max-w-40" key={id}>
+      <Link to={`/company/${stock}`}>{stock}</Link>
       <RemoveFavoriteStock
         onRemoveFavoriteStock={onRemoveFavoriteStock}
         stock={stock}
