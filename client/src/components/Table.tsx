@@ -43,7 +43,7 @@ const Table = (props: Props) => {
 
 export default Table;
 
-const testIncomeStatementData = [
+export const testIncomeStatementData = [
   {
     date: "2022-09-24",
     symbol: "AAPL",
