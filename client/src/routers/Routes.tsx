@@ -1,36 +1,40 @@
-import { createBrowserRouter } from 'react-router';
-import App from '../App';
-import { CompanyPage, DesignGuide, Homepage, SearchPage } from '../pages';
-import { CompanyProfile, IncomeStatement } from '../components';
+import { createBrowserRouter } from "react-router";
+import App from "../App";
+import { CompanyPage, DesignGuide, Homepage, SearchPage } from "../pages";
+import { BalanceSheet, CompanyProfile, IncomeStatement } from "../components";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
-        path: '',
+        path: "",
         element: <Homepage />,
       },
       {
-        path: 'search',
+        path: "search",
         element: <SearchPage />,
       },
       {
-        path: 'design-guide',
+        path: "design-guide",
         element: <DesignGuide />,
       },
       {
-        path: 'company/:ticker',
+        path: "company/:ticker",
         element: <CompanyPage />,
         children: [
           {
-            path: 'company-profile',
+            path: "company-profile",
             element: <CompanyProfile />,
           },
           {
-            path: 'income-statement',
+            path: "income-statement",
             element: <IncomeStatement />,
+          },
+          {
+            path: "balance-sheet",
+            element: <BalanceSheet />,
           },
         ],
       },

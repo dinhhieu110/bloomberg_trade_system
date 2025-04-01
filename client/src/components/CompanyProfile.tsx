@@ -45,7 +45,6 @@ const CompanyProfile = (props: Props) => {
   useEffect(() => {
     const getCompanyKeyRatios = async () => {
       const value = await getKeyMetrics(ticker);
-      console.log("value?.data:", value?.data);
       // Get the latest year data
       setCompanyData(value?.data[0]);
     };

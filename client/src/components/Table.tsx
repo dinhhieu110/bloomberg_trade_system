@@ -1,12 +1,14 @@
+import { CompanyIncomeStatement } from "../interfaces/company";
+
 type Props = {
   columns: any;
   data: any;
 };
 
 const Table = ({ columns, data }: Props) => {
-  const renderedRow = testIncomeStatementData.map((company) => (
+  const renderedRow = data.map((company: CompanyIncomeStatement) => (
     <tr key={company.cik}>
-      {columns.map((val) => (
+      {columns.map((val: any) => (
         <td className="p-3">{val.render(company)}</td>
       ))}
     </tr>

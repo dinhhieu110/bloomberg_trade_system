@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  CompanyBalanceSheet,
   CompanyIncomeStatement,
   CompanyKeyMetrics,
   CompanyProfile,
@@ -68,6 +69,24 @@ export const getIncomeStatement = async (query: string) => {
   try {
     const data = await axios.get<CompanyIncomeStatement[]>(
       `https://financialmodelingprep.com/api/v3/income-statement/${query}?limit=40&apikey=${
+        import.meta.env.VITE_API_KEY
+      }`
+    );
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error message: ", error.message);
+    } else {
+      console.error("Unexpected error: ", error);
+      return "An expected error has occurred.";
+    }
+  }
+};
+
+export const getBalanceSheet = async (query: string) => {
+  try {
+    const data = await axios.get<CompanyBalanceSheet[]>(
+      `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?limit=40&apikey=${
         import.meta.env.VITE_API_KEY
       }`
     );

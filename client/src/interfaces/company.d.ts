@@ -212,10 +212,10 @@ export interface CompanyCashFlow {
   acceptedDate: string;
   calendarYear: string;
   period: string;
-  netIncome: number;
-  depreciationAndAmortization: number;
-  deferredIncomeTax: number;
-  stockBasedCompensation: number;
+  cashAndCashEquivalents: number;
+  shortTermInvestments: number;
+  cashAndShortTermInvestments: number;
+  netReceivables: number;
   changeInWorkingCapital: number;
   accountsReceivables: number;
   inventory: number;
@@ -228,7 +228,7 @@ export interface CompanyCashFlow {
   purchasesOfInvestments: number;
   salesMaturitiesOfInvestments: number;
   otherInvestingActivites: number;
-  netCashUsedForInvestingActivites: number;
+  totalStockholdersEquity: number;
   debtRepayment: number;
   commonStockIssued: number;
   commonStockRepurchased: number;
@@ -239,7 +239,7 @@ export interface CompanyCashFlow {
   netChangeInCash: number;
   cashAtEndOfPeriod: number;
   cashAtBeginningOfPeriod: number;
-  operatingCashFlow: number;
+  totalInvestments: number;
   capitalExpenditure: number;
   freeCashFlow: number;
   link: string;
