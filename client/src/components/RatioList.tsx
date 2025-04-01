@@ -24,8 +24,8 @@ const RatioList = ({ columns, data }: Props) => {
     </li>
   ));
   return (
-    <div className="bg-white shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 h-full">
-      <ul className="divide-y divided-gray-200">{renderedRow}</ul>
+    <div className="bg-white shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 h-full w-full">
+      <ul className="divide-y divided-gray-200 ">{renderedRow}</ul>
     </div>
   );
 };

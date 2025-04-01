@@ -7,36 +7,56 @@ import RatioList from "./RatioList";
 type Props = {};
 const columns = [
   {
-    label: "Date",
-    render: (company: CompanyCashFlow) => company.date,
+    label: <div className="font-bold">Total Assets</div>,
+    render: (company: CompanyBalanceSheet) => company.totalAssets,
   },
   {
-    label: "Operating Cashflow",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: "Current Assets",
+    render: (company: CompanyBalanceSheet) => company.totalCurrentAssets,
   },
   {
-    label: "Investing Cashflow",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: "Total Cash",
+    render: (company: CompanyBalanceSheet) => company.cashAndCashEquivalents,
   },
   {
-    label: "Financing Cashflow",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: "Property & equipment",
+    render: (company: CompanyBalanceSheet) => company.propertyPlantEquipmentNet,
   },
   {
-    label: "Cash At End of Period",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: "Intangible Assets",
+    render: (company: CompanyBalanceSheet) => company.intangibleAssets,
   },
   {
-    label: "CapEX",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: "Long Term Debt",
+    render: (company: CompanyBalanceSheet) => company.longTermDebt,
   },
   {
-    label: "Issuance Of Stock",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: "Total Debt",
+    render: (company: CompanyBalanceSheet) => company.otherCurrentLiabilities,
   },
   {
-    label: "Free Cash Flow",
-    render: (company: CompanyCashFlow) => company.totalInvestments,
+    label: <div className="font-bold">Total Liabilites</div>,
+    render: (company: CompanyBalanceSheet) => company.totalLiabilities,
+  },
+  {
+    label: "Current Liabilities",
+    render: (company: CompanyBalanceSheet) => company.totalCurrentLiabilities,
+  },
+  {
+    label: "Long-Term Debt",
+    render: (company: CompanyBalanceSheet) => company.longTermDebt,
+  },
+  {
+    label: "Long-Term Income Taxes",
+    render: (company: CompanyBalanceSheet) => company.otherLiabilities,
+  },
+  {
+    label: "Stakeholder's Equity",
+    render: (company: CompanyBalanceSheet) => company.totalStockholdersEquity,
+  },
+  {
+    label: "Retained Earnings",
+    render: (company: CompanyBalanceSheet) => company.retainedEarnings,
   },
 ];
 const BalanceSheet = (props: Props) => {

@@ -13,3 +13,4 @@ export { default as IncomeStatement } from "./IncomeStatement.tsx";
 export { default as Tile } from "./Tile.tsx";
 export { default as Table } from "./Table.tsx";
 export { default as BalanceSheet } from "./BalanceSheet.tsx";
+export { default as CashflowStatement } from "./CashflowStatement.tsx";

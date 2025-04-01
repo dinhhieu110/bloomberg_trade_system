@@ -1,7 +1,7 @@
-import { FC, JSX, SyntheticEvent } from 'react';
-import { CompanySearch } from '../interfaces/company';
-import AddFavoriteStock from './AddFavoriteStock';
-import { Link } from 'react-router';
+import { FC, JSX, SyntheticEvent } from "react";
+import { CompanySearch } from "../interfaces/company";
+import AddFavoriteStock from "./AddFavoriteStock";
+import { Link } from "react-router";
 
 interface ICompanyCardProps {
   id: string;
@@ -19,7 +19,7 @@ const CompanyCard: FC<ICompanyCardProps> = ({
       <td className="py-4 text-st">{name}</td>
       <td className="py-4">{currency}</td>
       <td className="py-4">
-        <Link to={`/company/${symbol}`}>
+        <Link to={`/company/${symbol}/company-profile`}>
           {symbol}-{exchange}
         </Link>
       </td>

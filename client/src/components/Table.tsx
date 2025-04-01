@@ -15,10 +15,10 @@ const Table = ({ columns, data }: Props) => {
   ));
   const renderedHeader = columns.map((col: any) => (
     <th
-      key={col.Label}
+      key={col.label}
       className="p-4 text-left text-xs font-medium uppercase text-gray-500 tracking-wider"
     >
-      {col.Label}
+      {col.label}
     </th>
   ));
   return (
