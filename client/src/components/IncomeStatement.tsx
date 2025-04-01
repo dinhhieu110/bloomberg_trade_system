@@ -3,6 +3,7 @@ import { CompanyIncomeStatement } from "../interfaces/company";
 import { useOutletContext } from "react-router";
 import { getIncomeStatement } from "../endpoints";
 import Table from "./Table";
+import { formatLargeNonMonetaryNumber, formatRatio } from "../utils";
 
 type Props = {};
 
@@ -13,32 +14,38 @@ const columns = [
   },
   {
     label: "Revenue",
-    render: (company: CompanyIncomeStatement) => company.revenue,
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeNonMonetaryNumber(company.revenue),
   },
   {
     label: "Cost Of Revenue",
-    render: (company: CompanyIncomeStatement) => company.costOfRevenue,
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeNonMonetaryNumber(company.costOfRevenue),
   },
   {
     label: "Depreciation",
     render: (company: CompanyIncomeStatement) =>
-      company.depreciationAndAmortization,
+      formatLargeNonMonetaryNumber(company.depreciationAndAmortization),
   },
   {
     label: "Operating Income",
-    render: (company: CompanyIncomeStatement) => company.operatingIncome,
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeNonMonetaryNumber(company.operatingIncome),
   },
   {
     label: "Income Before Taxes",
-    render: (company: CompanyIncomeStatement) => company.incomeBeforeTax,
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeNonMonetaryNumber(company.incomeBeforeTax),
   },
   {
     label: "Net Income",
-    render: (company: CompanyIncomeStatement) => company.netIncome,
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeNonMonetaryNumber(company.netIncome),
   },
   {
     label: "Net Income Ratio",
-    render: (company: CompanyIncomeStatement) => company.netIncomeRatio,
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.netIncomeRatio),
   },
   {
     label: "Earnings Per Share",
@@ -50,15 +57,18 @@ const columns = [
   },
   {
     label: "Gross Profit Ratio",
-    render: (company: CompanyIncomeStatement) => company.grossProfitRatio,
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.grossProfitRatio),
   },
   {
     label: "Opearting Income Ratio",
-    render: (company: CompanyIncomeStatement) => company.operatingIncomeRatio,
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.operatingIncomeRatio),
   },
   {
     label: "Income Before Taxes Ratio",
-    render: (company: CompanyIncomeStatement) => company.incomeBeforeTaxRatio,
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.incomeBeforeTaxRatio),
   },
 ];
 

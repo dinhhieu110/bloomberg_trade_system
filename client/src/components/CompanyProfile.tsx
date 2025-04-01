@@ -3,38 +3,40 @@ import { CompanyKeyMetrics } from "../interfaces/company";
 import RatioList from "./RatioList";
 import { getKeyMetrics } from "../endpoints";
 import { useOutletContext } from "react-router";
+import { formatLargeNonMonetaryNumber, formatRatio } from "../utils";
 
 type Props = {};
 
 const columns = [
   {
     label: "Market Cap",
-    render: (company: CompanyKeyMetrics) => company.marketCap,
+    render: (company: CompanyKeyMetrics) =>
+      formatLargeNonMonetaryNumber(company.marketCap),
     subTitle: "Total value of a company's share of stock",
   },
   {
     label: "Current Ratio",
-    render: (company: CompanyKeyMetrics) => company.currentRatio,
+    render: (company: CompanyKeyMetrics) => formatRatio(company.currentRatio),
     subTitle: "Total value of a company's share of stock",
   },
   {
     label: "Return On Equity",
-    render: (company: CompanyKeyMetrics) => company.roe,
+    render: (company: CompanyKeyMetrics) => formatRatio(company.roe),
     subTitle: "Total value of a company's share of stock",
   },
   {
     label: "Cash Per Share",
-    render: (company: CompanyKeyMetrics) => company.cashPerShare,
+    render: (company: CompanyKeyMetrics) => formatRatio(company.cashPerShare),
     subTitle: "Total value of a company's share of stock",
   },
   {
     label: "Current Ratio",
-    render: (company: CompanyKeyMetrics) => company.currentRatio,
+    render: (company: CompanyKeyMetrics) => formatRatio(company.currentRatio),
     subTitle: "Total value of a company's share of stock",
   },
   {
     label: "Return On Equity",
-    render: (company: CompanyKeyMetrics) => company.roe,
+    render: (company: CompanyKeyMetrics) => formatRatio(company.roe),
     subTitle: "Total value of a company's share of stock",
   },
 ];
