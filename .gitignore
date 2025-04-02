@@ -20,7 +20,7 @@ packages/
 project.lock.json
 
 # Publish output
-wwwroot/
+wwwroot/ # Ignore if built dynamically, remove if used for static files
 
 # Logs and temporary files
 *.log
@@ -35,6 +35,11 @@ wwwroot/
 # Secrets and configuration
 appsettings.Development.json
 secrets.json
+*.config # Ignore all config files
+.env      # Ignore React and backend env files
+
+# VS Code settings (user-specific)
+.vscode/
 
 # Rider & JetBrains IDE files
 .idea/
