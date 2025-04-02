@@ -1,0 +1,70 @@
+# Visual Studio specific files
+.vs/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Packages
+packages/
+*.nupkg
+project.lock.json
+
+# Publish output
+wwwroot/
+
+# Logs and temporary files
+*.log
+*.tlog
+*.cache
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+
+# Secrets and configuration
+appsettings.Development.json
+secrets.json
+
+# Rider & JetBrains IDE files
+.idea/
+*.sln.iml
+
+# Node dependencies (React frontend)
+node_modules/
+
+# React build files
+/frontend/build/
+/frontend/.next/
+/frontend/.parcel-cache/
+/frontend/dist/
+
+# Generated files
+*.g.cs
+*.g.i.cs
+*.generated.cs
+
+# Coverage and analysis results
+TestResults/
+coverage/
+*.coverlet*
+
+# Docker
+docker-compose.override.yml
+
+# NuGet
+.nuget/
+
+# History files
+history.db
+*.history
