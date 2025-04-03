@@ -23,9 +23,9 @@ namespace server.repository
 
     }
 
-    public Task<Comment> GetByIdAsync(int id)
+    public async Task<Comment?> GetByIdAsync(int id)
     {
-      throw new NotImplementedException();
+      return await _context.Comments.FindAsync(id);
     }
   }
 }
