@@ -23,14 +23,13 @@ namespace server.mappers
     }
 
     // Map to API
-    public static Comment ToCommentFromCreateDTO(this CreateCommentReqDTO commentModel)
+    public static Comment ToCommentFromCreateDTO(this CreateCommentReqDTO commentModel, int stockId)
     {
       return new Comment
       {
         Title = commentModel.Title,
         Content = commentModel.Content,
-        CreatedOn = commentModel.CreatedOn,
-        StockId = commentModel.StockId
+        StockId = stockId
       };
     }
 
