@@ -35,5 +35,35 @@ namespace server.repository
       await _context.SaveChangesAsync();
       return newComment;
     }
+
+    public async Task<Comment> UpdateAsync(int id, UpdatedReqDTO newComment)
+    {
+      var commentModel = _context.Comments.FirstOrDefault(i => i.Id ==id );
+      if (commentModel == null)
+      {
+        return null;
+      }
+      commentModel.Title = newComment.Title;
+      commentModel.CreatedOn = newComment.CreatedOn;
+      commentModel.Content = newComment.Content;
+      commentModel.StockId = newComment.StockId;
+
+      await _context.SaveChangesAsync();
+      return commentModel;
+    }
+
+    public async Task<Comment?> DeleteAsync(int id)
+    {
+      var commentModel = await _context.Comments.FirstOrDefaultAsync(i => i.Id == id);
+
+      if (commentModel == null)
+      {
+        return null;
+      }
+
+      _context.Comments.Remove(commentModel);
+      await _context.SaveChangesAsync();
+      return commentModel;
+    }
   }
 }

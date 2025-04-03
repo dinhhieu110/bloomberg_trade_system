@@ -49,5 +49,31 @@ namespace server.controllers
       return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDTO());
 
     }
+
+    [HttpPut]
+    [Route("{id}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatedReqDTO updatedComment)
+    {
+      var commentModel = await _commentRepo.UpdateAsync(id, updatedComment);
+      if (commentModel == null)
+      {
+        return NotFound();
+      }
+      return Ok(commentModel.ToCommentDTO());
+
+    }
+
+     [HttpDelete]
+    [Route("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+      var commentModel = await _commentRepo.DeleteAsync(id);
+      if (commentModel == null)
+      {
+        return NotFound();
+      }
+      return NoContent();
+
+    }
   }
 }
