@@ -7,8 +7,9 @@ using server.models;
 
 namespace server.mappers
 {
-    public static class CommentMappers
-    {
+  public static class CommentMappers
+  {
+    // Map to UI
     public static CommentDTO ToCommentDTO(this Comment commentModel)
     {
       return new CommentDTO
@@ -19,6 +20,19 @@ namespace server.mappers
         CreatedOn = commentModel.CreatedOn,
         StockId = commentModel.StockId
       };
-        }
+    }
+
+    // Map to API
+    public static Comment ToCommentFromCreateDTO(this CreateCommentReqDTO commentModel)
+    {
+      return new Comment
+      {
+        Title = commentModel.Title,
+        Content = commentModel.Content,
+        CreatedOn = commentModel.CreatedOn,
+        StockId = commentModel.StockId
+      };
+    }
+
     }
 }

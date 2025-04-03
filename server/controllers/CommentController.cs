@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using server.dtos.comment;
 using server.interfaces;
 using server.mappers;
 
@@ -30,7 +31,7 @@ namespace server.controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute]int id)
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
       var comment = await _commentRepo.GetByIdAsync(id);
       if (comment == null)
@@ -38,6 +39,15 @@ namespace server.controllers
         return NotFound();
       }
       return Ok(comment);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateCommentReqDTO newComment)
+    {
+      var commentModel = newComment.ToCommentFromCreateDTO();
+      await _commentRepo.CreateAsync(commentModel);
+      return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDTO());
+
     }
   }
 }
