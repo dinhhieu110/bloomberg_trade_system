@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using server.data;
+using server.dtos.stock;
 using server.mappers;
 
 namespace server.controllers
@@ -26,7 +27,7 @@ namespace server.controllers
       return Ok(stocks);
     }
 
-     [HttpGet ("{id}")]
+    [HttpGet("{id}")]
     public IActionResult GetById([FromRoute] int id)
     {
       var stock = _context.Stocks.Find(id);
@@ -35,6 +36,15 @@ namespace server.controllers
         return NotFound();
       }
       return Ok(stock.ToStockDTO());
+    }
+
+    [HttpPost]
+    public IActionResult Create([FromBody] CreateStockReqDTO newStock)
+    {
+      var stockModel = newStock.ToStockFromCreateDTO();
+      _context.Add(stockModel);
+      _context.SaveChanges();
+      return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDTO());
     }
   }
 }

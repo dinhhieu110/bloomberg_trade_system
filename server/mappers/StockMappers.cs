@@ -7,8 +7,8 @@ using server.models;
 
 namespace server.mappers
 {
-    public static class StockMappers
-    {
+  public static class StockMappers
+  {
     public static StockDTO ToStockDTO(this Stock stockModel)
     {
       return new StockDTO
@@ -21,6 +21,20 @@ namespace server.mappers
         Industry = stockModel.Industry,
         MarketCap = stockModel.MarketCap
       };
-        }
+    }
+
+     public static Stock ToStockFromCreateDTO(this CreateStockReqDTO stockModel)
+    {
+      return new Stock
+      {
+        Symbol = stockModel.Symbol,
+        CompanyName = stockModel.CompanyName,
+        Purchase = stockModel.Purchase,
+        LastDiv = stockModel.LastDiv,
+        Industry = stockModel.Industry,
+        MarketCap = stockModel.MarketCap
+      };
+    }
+
     }
 }
