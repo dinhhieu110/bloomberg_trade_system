@@ -24,7 +24,21 @@ namespace server.mappers
       };
     }
 
-     public static Stock ToStockFromCreateDTO(this CreateStockReqDTO stockModel)
+    public static Stock ToStockFromCreateDTO(this CreateStockReqDTO stockModel)
+    {
+      return new Stock
+      {
+        Symbol = stockModel.Symbol,
+        CompanyName = stockModel.CompanyName,
+        Purchase = stockModel.Purchase,
+        LastDiv = stockModel.LastDiv,
+        Industry = stockModel.Industry,
+        MarketCap = stockModel.MarketCap,
+
+      };
+    }
+
+     public static Stock ToStockFromUpdateDTO(this UpdateStockReqDTO stockModel)
     {
       return new Stock
       {

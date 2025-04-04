@@ -47,8 +47,15 @@ namespace server.repository
       return stockModel;
     }
 
-    public async Task<Stock?> UpdateAsync(int id, UpdateStockReqDTO updatedStock)
+
+
+    public Task<bool> StockExists(int id)
     {
+      return _context.Stocks.AnyAsync(i => i.Id == id);
+    }
+
+    public async Task<Stock?> UpdateAsync(int id, Stock updatedStock)
+   {
       var stockModel = await _context.Stocks.FirstOrDefaultAsync(i => i.Id == id);
 
       if (stockModel == null)
@@ -64,11 +71,6 @@ namespace server.repository
 
       await _context.SaveChangesAsync();
       return stockModel;
-    }
-
-    public Task<bool> StockExists(int id)
-    {
-      return _context.Stocks.AnyAsync(i => i.Id == id);
     }
   }
 }

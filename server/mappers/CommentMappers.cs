@@ -32,6 +32,15 @@ namespace server.mappers
         StockId = stockId
       };
     }
+     public static Comment ToCommentFromUpdateDTO(this UpdatedReqDTO commentModel, int stockId)
+    {
+      return new Comment
+      {
+        Title = commentModel.Title,
+        Content = commentModel.Content,
+        StockId = stockId
+      };
+    }
 
     }
 }
