@@ -9,7 +9,7 @@ namespace server.mappers
 {
   public static class StockMappers
   {
-    public static StockDTO ToStockDTO(this Stock stockModel)
+    public static StockDTO MapStockAPIToDTO(this Stock stockModel)
     {
       return new StockDTO
       {
@@ -20,11 +20,11 @@ namespace server.mappers
         LastDiv = stockModel.LastDiv,
         Industry = stockModel.Industry,
         MarketCap = stockModel.MarketCap,
-        Comments = stockModel.Comments.Select(i => i.ToCommentDTO()).ToList()
+        Comments = stockModel.Comments.Select(i => i.MapCommentAPIToDTO()).ToList()
       };
     }
 
-    public static Stock ToStockFromCreateDTO(this CreateStockReqDTO stockModel)
+    public static Stock MapCreateStockDTOToAPI(this CreateStockDTO stockModel)
     {
       return new Stock
       {
@@ -38,7 +38,7 @@ namespace server.mappers
       };
     }
 
-     public static Stock ToStockFromUpdateDTO(this UpdateStockReqDTO stockModel)
+     public static Stock ToStockFromUpdateDTO(this UpdateStockDTO stockModel)
     {
       return new Stock
       {

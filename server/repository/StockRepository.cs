@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using server.data;
 using server.dtos.stock;
+using server.helpers;
 using server.interfaces;
 using server.models;
 
@@ -17,9 +18,19 @@ namespace server.repository
     {
       _context = context;
     }
-    public async Task<List<Stock>> GetAllAsync()
+    public async Task<List<Stock>> GetAllAsync(QueryObject query)
     {
-      return await _context.Stocks.Include(i => i.Comments).ToListAsync();
+      var stocks = _context.Stocks.Include(i => i.Comments).AsQueryable();
+      if (!string.IsNullOrWhiteSpace(query.CompanyName))
+      {
+        //  return "APPLE INC, APPLE..." when searching "Apple" only
+        stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
+      }
+      if (!string.IsNullOrWhiteSpace(query.Symbol))
+      {
+        stocks = stocks.Where(s => s.Symbol.Contains(query.Symbol));
+      }
+      return await stocks.ToListAsync();
     }
 
     public async Task<Stock?> GetByIdAsync(int id)

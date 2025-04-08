@@ -10,7 +10,7 @@ namespace server.mappers
   public static class CommentMappers
   {
     // Map to UI
-    public static CommentDTO ToCommentDTO(this Comment commentModel)
+    public static CommentDTO MapCommentAPIToDTO(this Comment commentModel)
     {
       return new CommentDTO
       {
@@ -23,7 +23,7 @@ namespace server.mappers
     }
 
     // Map to API
-    public static Comment ToCommentFromCreateDTO(this CreateCommentReqDTO commentModel, int stockId)
+    public static Comment MapCreateCommentDTOToAPI(this CreateCommentDTO commentModel, int stockId)
     {
       return new Comment
       {
@@ -32,7 +32,7 @@ namespace server.mappers
         StockId = stockId
       };
     }
-     public static Comment ToCommentFromUpdateDTO(this UpdatedReqDTO commentModel, int stockId)
+     public static Comment ToCommentFromUpdateDTO(this UpdateCommentDTO commentModel, int stockId)
     {
       return new Comment
       {

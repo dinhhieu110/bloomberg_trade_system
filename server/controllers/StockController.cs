@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.data;
 using server.dtos.stock;
+using server.helpers;
 using server.interfaces;
 using server.mappers;
 
@@ -25,11 +26,11 @@ namespace server.controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
     {
       if(!ModelState.IsValid) return BadRequest(ModelState);
-      var stocks = await _stockRepo.GetAllAsync();
-      var stockDTO = stocks.Select(stock => stock.ToStockDTO());
+      var stocks = await _stockRepo.GetAllAsync(query);
+      var stockDTO = stocks.Select(stock => stock.MapStockAPIToDTO());
       return Ok(stocks);
     }
 
@@ -42,21 +43,21 @@ namespace server.controllers
       {
         return NotFound();
       }
-      return Ok(stock.ToStockDTO());
+      return Ok(stock.MapStockAPIToDTO());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateStockReqDTO newStock)
+    public async Task<IActionResult> Create([FromBody] CreateStockDTO newStock)
     {
       if(!ModelState.IsValid) return BadRequest(ModelState);
-      var stockModel = newStock.ToStockFromCreateDTO();
+      var stockModel = newStock.MapCreateStockDTOToAPI();
       await _stockRepo.CreateAsync(stockModel);
-      return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDTO());
+      return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.MapStockAPIToDTO());
     }
 
     [HttpPut]
     [Route("{id:int}")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockReqDTO updatedStock)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockDTO updatedStock)
     {
       if(!ModelState.IsValid) return BadRequest(ModelState);
       var stockModel = await _stockRepo.UpdateAsync(id, updatedStock.ToStockFromUpdateDTO());
@@ -64,7 +65,7 @@ namespace server.controllers
       {
         return NotFound();
       }
-      return Ok(stockModel.ToStockDTO());
+      return Ok(stockModel.MapStockAPIToDTO());
     }
 
     [HttpDelete]

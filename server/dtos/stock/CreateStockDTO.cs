@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace server.dtos.stock
 {
-    public class UpdateStockReqDTO
+    public class CreateStockDTO
     {
     [Required]
     [MaxLength(10, ErrorMessage = "Symbol must be at most 10 characters long")]
@@ -17,6 +17,7 @@ namespace server.dtos.stock
     [Required]
     [Range(1,1000000000, ErrorMessage = "Price must be between 1 and 1000000000")]
     public decimal Purchase { get; set; }
+
     [Required]
     [Range(0.001, 100)]
     public decimal LastDiv { get; set; }
@@ -26,6 +27,5 @@ namespace server.dtos.stock
     [Required]
     [Range(1, 500000000, ErrorMessage = "Market Cap must be between 1 and 50000000")]
     public long MarketCap { get; set; }
-
     }
 }

@@ -28,7 +28,7 @@ namespace server.controllers
       if(!ModelState.IsValid) return BadRequest(ModelState);
       var comments = await _commentRepo.GetAllAsync();
 
-      var commentDTOs = comments.Select(i => i.ToCommentDTO());
+      var commentDTOs = comments.Select(i => i.MapCommentAPIToDTO());
 
       return Ok(commentDTOs);
     }
@@ -42,11 +42,11 @@ namespace server.controllers
       {
         return NotFound();
       }
-      return Ok(comment.ToCommentDTO());
+      return Ok(comment.MapCommentAPIToDTO());
     }
 
     [HttpPost("{stockId:int}")]
-    public async Task<IActionResult> Create([FromRoute] int stockId,[FromBody] CreateCommentReqDTO newComment)
+    public async Task<IActionResult> Create([FromRoute] int stockId,[FromBody] CreateCommentDTO newComment)
     {
       if(!ModelState.IsValid) return BadRequest(ModelState);
       if (!await _stockRepo.StockExists(stockId))
@@ -54,15 +54,15 @@ namespace server.controllers
         return BadRequest("Stock dost not exist...");
       }
       ;
-      var commentModel = newComment.ToCommentFromCreateDTO(stockId);
+      var commentModel = newComment.MapCreateCommentDTOToAPI(stockId);
       await _commentRepo.CreateAsync(commentModel);
-      return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDTO());
+      return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.MapCommentAPIToDTO());
 
     }
 
     [HttpPut]
     [Route("{id:int}")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatedReqDTO updatedComment)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentDTO updatedComment)
     {
       if(!ModelState.IsValid) return BadRequest(ModelState);
       var commentModel = await _commentRepo.UpdateAsync(id, updatedComment.ToCommentFromUpdateDTO(id));
@@ -70,7 +70,7 @@ namespace server.controllers
       {
         return NotFound();
       }
-      return Ok(commentModel.ToCommentDTO());
+      return Ok(commentModel.MapCommentAPIToDTO());
 
     }
 
