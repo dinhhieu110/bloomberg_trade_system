@@ -55,8 +55,9 @@ namespace server.repository
       {
         stocks = stocks.OrderBy(i => i.Id);
       }
+      var skippedNumber = (query.PageNumber - 1) * query.PageSize;
 
-      return await stocks.ToListAsync();
+      return await stocks.Skip(skippedNumber).Take(query.PageSize).ToListAsync();
     }
 
     public async Task<Stock?> GetByIdAsync(int id)
