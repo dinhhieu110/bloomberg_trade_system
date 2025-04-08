@@ -30,6 +30,32 @@ namespace server.repository
       {
         stocks = stocks.Where(s => s.Symbol.Contains(query.Symbol));
       }
+
+      if(!string.IsNullOrWhiteSpace(query.SortBy))
+      {
+        // "Symbol, symbol, SyMbOl,..."
+        if (query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+        {
+          stocks = query.IsDescending ? stocks.OrderByDescending(i => i.Symbol) : stocks.OrderBy(i => i.Symbol);
+        }
+        else if (query.SortBy.Equals("CompanyName", StringComparison.OrdinalIgnoreCase))
+        {
+          stocks = query.IsDescending ? stocks.OrderByDescending(i => i.CompanyName) : stocks.OrderBy(i => i.CompanyName);
+        }
+        else if (query.SortBy.Equals("MarketCap", StringComparison.OrdinalIgnoreCase))
+        {
+          stocks = query.IsDescending ? stocks.OrderByDescending(i => i.MarketCap) : stocks.OrderBy(i => i.MarketCap);
+        }
+        else
+        {
+          stocks = stocks.OrderBy(i => i.Id);
+        }
+      }
+      else
+      {
+        stocks = stocks.OrderBy(i => i.Id);
+      }
+
       return await stocks.ToListAsync();
     }
 

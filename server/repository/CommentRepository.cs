@@ -50,19 +50,19 @@ namespace server.repository
       return commentModel;
     }
 
-    public async Task<Comment> UpdateAsync(int id, Comment updatedComment)
+    public async Task<Comment?> UpdateAsync(int id, Comment updatedComment)
        {
-      var commentModel = _context.Comments.FirstOrDefault(i => i.Id ==id );
-      if (commentModel == null)
+      var existingComment = await _context.Comments.FindAsync(id);
+      if (existingComment == null)
       {
         return null;
       }
-      commentModel.Title = updatedComment.Title;
-      commentModel.Content = updatedComment.Content;
+      existingComment.Title = updatedComment.Title;
+      existingComment.Content = updatedComment.Content;
 
 
       await _context.SaveChangesAsync();
-      return commentModel;
+      return existingComment;
     }
   }
 }

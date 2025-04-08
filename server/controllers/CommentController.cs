@@ -65,10 +65,10 @@ namespace server.controllers
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentDTO updatedComment)
     {
       if(!ModelState.IsValid) return BadRequest(ModelState);
-      var commentModel = await _commentRepo.UpdateAsync(id, updatedComment.ToCommentFromUpdateDTO(id));
+      var commentModel = await _commentRepo.UpdateAsync(id, updatedComment.ToCommentFromUpdateDTO());
       if (commentModel == null)
       {
-        return NotFound();
+        return NotFound("Comment not found");
       }
       return Ok(commentModel.MapCommentAPIToDTO());
 
