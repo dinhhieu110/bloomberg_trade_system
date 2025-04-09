@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace server.models
 {
   [Table("Comments")]
-    public class Comment
+  public class Comment
   {
     // For Database
     public int Id { get; set; }
@@ -16,5 +16,8 @@ namespace server.models
     public DateTime CreatedOn { get; set; } = DateTime.Now;
     public int? StockId { get; set; }
     public Stock? Stock { get; set; }
+
+    public string AppUserId { get; set; }
+    public AppUser AppUser { get; set; }
   }
 }
