@@ -7,6 +7,7 @@ using server.data;
 using server.interfaces;
 using server.models;
 using server.repository;
+using server.services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +22,11 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+  options.UseSqlServer(connectionString)
+);
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
@@ -60,6 +62,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 
 var app = builder.Build();
