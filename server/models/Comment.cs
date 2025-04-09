@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace server.models
 {
+  [Table("Comments")]
     public class Comment
-    {
-      // For Database
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Content { get; set; } = string.Empty;
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public int? StockId { get; set; }
-        public Stock? Stock { get; set; }
-    }
+  {
+    // For Database
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
+    public DateTime CreatedOn { get; set; } = DateTime.Now;
+    public int? StockId { get; set; }
+    public Stock? Stock { get; set; }
+  }
 }
