@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using server.extensions;
@@ -64,6 +65,29 @@ namespace server.controllers
       {
         return Created();
       }
+    }
+    [HttpDelete]
+    [Authorize]
+    public async Task<IActionResult> DeletePortfolio(string symbol)
+    {
+      var userEmail = User.GetUserEmail();
+      var appUser = await _userManager.FindByEmailAsync(userEmail);
+
+      var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
+
+      var filterStocks = userPortfolio.Where(favoriteStock => favoriteStock.Symbol.ToLower() == symbol.ToLower());
+
+      if (filterStocks.Count() == 1)
+      {
+        await _portfolioRepo.DeletePortfolio(appUser, symbol);
+      }
+      else
+      {
+        return BadRequest("Stock is not in your porfolio!");
+      }
+
+      return Ok();
+
     }
   }
 }
