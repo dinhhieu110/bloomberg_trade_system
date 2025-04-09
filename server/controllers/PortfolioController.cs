@@ -34,6 +34,36 @@ namespace server.controllers
       var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
       return Ok(userPortfolio);
     }
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> AddUserPortfolio(string symbol)
+    {
+      var userEmail = User.GetUserEmail();
+      var appUser = await _userManager.FindByEmailAsync(userEmail);
+      var stock = await _stockRepo.GetBySymbolAsync(symbol);
 
+      if (stock == null) return BadRequest("Stock not found!");
+
+      var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
+
+      if (userPortfolio.Any(i => i.Symbol.ToLower() == symbol.ToLower())) return BadRequest("Duplicate stock in portfolio!");
+
+      var portfolioModel = new Portfolio
+      {
+        StockId = stock.Id,
+        AppUserId = appUser.Id
+      };
+
+      await _portfolioRepo.CreateAsync(portfolioModel);
+
+      if (portfolioModel == null)
+      {
+        return StatusCode(500, "Could not create");
+      }
+      else
+      {
+        return Created();
+      }
+    }
   }
 }

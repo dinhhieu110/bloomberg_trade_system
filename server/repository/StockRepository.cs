@@ -65,6 +65,11 @@ namespace server.repository
       return await _context.Stocks.Include(i => i.Comments).FirstOrDefaultAsync(i=> i.Id == id);
     }
 
+    public async Task<Stock?> GetBySymbolAsync(string symbol)
+    {
+      return await _context.Stocks.Include(i => i.Comments).FirstOrDefaultAsync(i=> i.Symbol == symbol);
+    }
+
     public async Task<Stock> CreateAsync(Stock stockModel)
     {
       await _context.Stocks.AddAsync(stockModel);
