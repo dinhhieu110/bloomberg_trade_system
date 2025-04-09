@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.data;
@@ -26,19 +27,21 @@ namespace server.controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
+    [Authorize]
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
     {
-      if(!ModelState.IsValid) return BadRequest(ModelState);
+      if (!ModelState.IsValid) return BadRequest(ModelState);
       var stocks = await _stockRepo.GetAllAsync(query);
       var stockDTO = stocks.Select(stock => stock.MapStockAPIToDTO());
       return Ok(stocks);
     }
 
     [HttpGet("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-      if(!ModelState.IsValid) return BadRequest(ModelState);
-      var stock =await _stockRepo.GetByIdAsync(id);
+      if (!ModelState.IsValid) return BadRequest(ModelState);
+      var stock = await _stockRepo.GetByIdAsync(id);
       if (stock == null)
       {
         return NotFound();
@@ -47,15 +50,17 @@ namespace server.controllers
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateStockDTO newStock)
     {
-      if(!ModelState.IsValid) return BadRequest(ModelState);
+      if (!ModelState.IsValid) return BadRequest(ModelState);
       var stockModel = newStock.MapCreateStockDTOToAPI();
       await _stockRepo.CreateAsync(stockModel);
       return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.MapStockAPIToDTO());
     }
 
     [HttpPut]
+    [Authorize]
     [Route("{id:int}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockDTO updatedStock)
     {
@@ -69,6 +74,7 @@ namespace server.controllers
     }
 
     [HttpDelete]
+    [Authorize]
     [Route("{id:int}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
