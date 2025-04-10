@@ -20,7 +20,7 @@ namespace server.repository
     }
     public async Task<List<Stock>> GetAllAsync(QueryObject query)
     {
-      var stocks = _context.Stocks.Include(i => i.Comments).AsQueryable();
+      var stocks = _context.Stocks.Include(i => i.Comments).ThenInclude(x => x.AppUser).AsQueryable();
       if (!string.IsNullOrWhiteSpace(query.CompanyName))
       {
         //  return "APPLE INC, APPLE..." when searching "Apple" only

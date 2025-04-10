@@ -32,8 +32,8 @@ namespace server.controllers
     {
       if (!ModelState.IsValid) return BadRequest(ModelState);
       var stocks = await _stockRepo.GetAllAsync(query);
-      var stockDTO = stocks.Select(stock => stock.MapStockAPIToDTO());
-      return Ok(stocks);
+      var stockDTO = stocks.Select(stock => stock.MapStockAPIToDTO()).ToList();
+      return Ok(stockDTO);
     }
 
     [HttpGet("{id:int}")]

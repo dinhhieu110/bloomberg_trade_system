@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using server.dtos.comment;
+using server.extensions;
 using server.interfaces;
 using server.mappers;
+using server.models;
 
 namespace server.controllers
   {
@@ -16,11 +19,13 @@ namespace server.controllers
   {
     private readonly ICommentRepository _commentRepo;
     private readonly IStockRepository _stockRepo;
+    private readonly UserManager<AppUser> _userManager;
 
-    public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
+    public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo, UserManager<AppUser> userManager)
     {
       _commentRepo = commentRepo;
       _stockRepo = stockRepo;
+      _userManager = userManager;
     }
 
     [HttpGet]
@@ -59,9 +64,13 @@ namespace server.controllers
       if (!await _stockRepo.StockExists(stockId))
       {
         return BadRequest("Stock dost not exist...");
-      }
-      ;
+      };
+
+      var userEmail = User.GetUserEmail();
+      var appUser = await _userManager.FindByEmailAsync(userEmail);
+
       var commentModel = newComment.MapCreateCommentDTOToAPI(stockId);
+      commentModel.AppUserId = appUser.Id;
       await _commentRepo.CreateAsync(commentModel);
       return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.MapCommentAPIToDTO());
 
