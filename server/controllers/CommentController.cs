@@ -20,12 +20,14 @@ namespace server.controllers
     private readonly ICommentRepository _commentRepo;
     private readonly IStockRepository _stockRepo;
     private readonly UserManager<AppUser> _userManager;
+    private readonly IFMPService _fMPService;
 
-    public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo, UserManager<AppUser> userManager)
+    public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo, UserManager<AppUser> userManager, IFMPService fMPService)
     {
       _commentRepo = commentRepo;
       _stockRepo = stockRepo;
       _userManager = userManager;
+      _fMPService = fMPService;
     }
 
     [HttpGet]
@@ -55,21 +57,33 @@ namespace server.controllers
       return Ok(comment.MapCommentAPIToDTO());
     }
 
-    [HttpPost("{stockId:int}")]
+    [HttpPost("{symbol:alpha}")]
     [Authorize]
 
-    public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentDTO newComment)
+    public async Task<IActionResult> Create([FromRoute] string symbol, [FromBody] CreateCommentDTO newComment)
     {
       if (!ModelState.IsValid) return BadRequest(ModelState);
-      if (!await _stockRepo.StockExists(stockId))
+      var stock = await _stockRepo.GetBySymbolAsync(symbol);
+
+      // This means this stock is not in our local DB --> check stock on financial modeling prep
+      if (stock == null)
       {
-        return BadRequest("Stock dost not exist...");
-      };
+        stock = await _fMPService.FindStockBySymbolAsync(symbol);
+        if (stock == null)
+        {
+          return BadRequest("Stock does not exist!");
+        }
+        else
+        {
+          await _stockRepo.CreateAsync(stock);
+        }
+      }
 
       var userEmail = User.GetUserEmail();
       var appUser = await _userManager.FindByEmailAsync(userEmail);
 
-      var commentModel = newComment.MapCreateCommentDTOToAPI(stockId);
+      var commentModel = newComment.MapCreateCommentDTOToAPI(stock
+      .Id);
       commentModel.AppUserId = appUser.Id;
       await _commentRepo.CreateAsync(commentModel);
       return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.MapCommentAPIToDTO());

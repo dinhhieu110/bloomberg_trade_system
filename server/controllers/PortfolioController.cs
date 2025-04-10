@@ -18,12 +18,16 @@ namespace server.controllers
     private readonly UserManager<AppUser> _userManager;
     private readonly IStockRepository _stockRepo;
     private readonly IPortfolioRepository _portfolioRepo;
+    private readonly IFMPService _fMPService;
 
-    public PortfolioController(UserManager<AppUser> userManager, IStockRepository stockRepository, IPortfolioRepository portfolioRepo)
+
+    public PortfolioController(UserManager<AppUser> userManager, IStockRepository stockRepository, IPortfolioRepository portfolioRepo, IFMPService fMPService)
     {
       _stockRepo = stockRepository;
       _userManager = userManager;
       _portfolioRepo = portfolioRepo;
+      _fMPService = fMPService;
+
     }
 
     [HttpGet]
@@ -42,6 +46,21 @@ namespace server.controllers
       var userEmail = User.GetUserEmail();
       var appUser = await _userManager.FindByEmailAsync(userEmail);
       var stock = await _stockRepo.GetBySymbolAsync(symbol);
+
+ // This means this stock is not in our local DB --> check stock on financial modeling prep
+      if (stock == null)
+      {
+        stock = await _fMPService.FindStockBySymbolAsync(symbol);
+        if (stock == null)
+        {
+          return BadRequest("Stock does not exist!");
+        }
+        else
+        {
+          await _stockRepo.CreateAsync(stock);
+        }
+      }
+
 
       if (stock == null) return BadRequest("Stock not found!");
 

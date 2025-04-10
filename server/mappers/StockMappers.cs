@@ -38,6 +38,20 @@ namespace server.mappers
       };
     }
 
+    public static Stock MapFMPStockToAPI(this FMPStock fmpStockModel)
+    {
+      return new Stock
+      {
+        Symbol = fmpStockModel.symbol,
+        CompanyName = fmpStockModel.companyName,
+        Purchase = (decimal)fmpStockModel.price,
+        LastDiv = (decimal)fmpStockModel.lastDiv,
+        Industry = fmpStockModel.industry,
+        MarketCap = fmpStockModel.mktCap,
+
+      };
+    }
+
      public static Stock ToStockFromUpdateDTO(this UpdateStockDTO stockModel)
     {
       return new Stock
