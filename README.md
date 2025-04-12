@@ -1,9 +1,10 @@
 📈 BloombergTrade System
-📌 About the Project
+
+##📌 About the Project
 BloombergTrade is a modern web application that enables users to monitor, search, and analyze the stock performance of listed companies.
 It provides real-time insights, allows users to build a personalized watchlist, and includes tools for administrators to manage company data effectively.
 
-🚀 Tech Stack
+##🚀 Tech Stack
 This project is built using the following technologies:
 
 Frontend: React.js with TypeScript & TailwindCSS
@@ -16,7 +17,7 @@ Authentication: JWT-based authentication
 
 State Management: React Context API
 
-🔧 Features
+##🔧 Features
 ✅ User authentication and role-based access control
 ✅ Real-time stock price updates
 ✅ Search, filter, and sort companies by name, sector, or performance
@@ -24,7 +25,7 @@ State Management: React Context API
 ✅ Company detail pages with historical performance charts
 ✅ Scalable and secure backend API
 
-📦 Installation & Setup
+##📦 Installation & Setup
 🔹 Frontend
 Clone the repository
 
@@ -45,5 +46,5 @@ Update the appsettings.json with your database connection string and JWT setting
 
 Run the project using Visual Studio or dotnet run
 
-👨‍💻 Author
+##👨‍💻 Author
 Tran Dinh Hieu (Wilson Tran) – A passionate software developer focused on building full-stack web applications.
